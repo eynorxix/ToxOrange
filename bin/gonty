@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Lanzador de Gonty (GTK4).
+#
+# - Si hay una instancia residente y el codigo es ACTUAL, la muestra al
+#   instante por D-Bus (sin arrancar Python+GTK).
+# - Si el codigo cambio despues de que arranco la instancia, la reinicia.
+set -euo pipefail
+
+APP_ID="org.eynor.gonty"
+OBJ_PATH="/org/eynor/gonty"
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+APP_DIR="$SCRIPT_DIR/../app"
+PY_FILE="$APP_DIR/main.py"
+
+# Patron ERE que coincide con la linea de comandos real de la instancia,
+# tanto si arranco como ".../bin/../app/main.py" como ".../app/main.py".
+PROJ="$(basename "$(dirname "$APP_DIR")")"
+PY_PATTERN="${PROJ}.*app/main\\.py"
+
+# Reinicia instancias cuyo codigo quedo viejo (cualquier .py/.css mas nuevo).
+restart_stale() {
+    local pid
+    while read -r pid; do
+        [ -n "$pid" ] || continue
+        [ -r "/proc/$pid" ] || continue
+        if find "$APP_DIR" \( -name '*.py' -o -name '*.css' \) \
+               -newer "/proc/$pid" -print -quit 2>/dev/null | grep -q .; then
+            kill "$pid" 2>/dev/null || true
+        fi
+    done < <(pgrep -f -- "$PY_PATTERN" || true)
+
+    # Espera a que mueran para evitar el Activate de una instancia vieja.
+    local tries=0
+    while pgrep -f -- "$PY_PATTERN" >/dev/null 2>&1 && [ "$tries" -lt 20 ]; do
+        sleep 0.1
+        tries=$((tries + 1))
+    done
+}
+
+restart_stale
+
+if command -v gdbus >/dev/null 2>&1; then
+    if gdbus call --session \
+        --dest "$APP_ID" \
+        --object-path "$OBJ_PATH" \
+        --method org.freedesktop.Application.Activate "{}" >/dev/null 2>&1; then
+        exit 0
+    fi
+fi
+
+exec python3 "$PY_FILE" "$@"

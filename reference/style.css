@@ -1,0 +1,470 @@
+/* ============================================================
+   Notes Widget - estilos (los colores @define-color se inyectan
+   desde el tema activo en widget.py).
+   ============================================================ */
+
+/* --- Ventanas: fondo transparente real (Wayland ARGB) --- */
+window.notes-window,
+window.editor-window {
+  background-color: transparent;
+  background-image: none;
+}
+
+window.notes-window .card,
+window.editor-window .card {
+  background-color: @bg;
+  border: 1px solid @border;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Marco de color (franja). El background lo inyecta widget.py segun el tema. */
+.frame {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* --- Tipografia monoespaciada estilo terminal --- */
+window.notes-window,
+window.editor-window {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Fira Code",
+               "AtkynsonMono Nerd Font", "Hack Nerd Font", monospace;
+  font-size: 13px;
+  color: @fg;
+}
+
+/* --- Barra de titulo --- */
+.titlebar {
+  padding: 10px 12px;
+  background-color: transparent;
+  border-bottom: 1px solid @border;
+}
+.titlebar-title {
+  color: @accent;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.titlebar-dot {
+  color: @green;
+  font-weight: 700;
+}
+
+/* --- Botones de icono --- */
+button.icon-btn {
+  min-width: 26px;
+  min-height: 26px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  background-image: none;
+  color: @fg;
+  box-shadow: none;
+}
+button.icon-btn:hover {
+  background-color: alpha(@accent, 0.20);
+  color: @accent;
+}
+button.icon-btn:active {
+  background-color: alpha(@accent, 0.32);
+}
+
+/* --- Area de lista --- */
+scrolledwindow,
+scrolledwindow > viewport,
+scrolledwindow > viewport > widget {
+  background-color: transparent;
+}
+.note-list {
+  padding: 10px;
+}
+
+/* --- Fila de un recordatorio (4 columnas) --- */
+.note-row {
+  background-color: @bg_soft;
+  border: 1px solid alpha(@accent, 0.12);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+.note-row:hover {
+  background-color: @bg_hover;
+  border-color: alpha(@accent, 0.30);
+}
+.note-row:focus {
+  outline: none;
+}
+.note-row.selected {
+  background-color: alpha(@accent, 0.18);
+  border-color: @accent;
+  box-shadow: inset 3px 0 0 @accent;
+}
+
+/* Columna 2: bloque de la tarea (3 filas) */
+.task-title {
+  color: @fg;
+  font-weight: 700;
+  /* Reserva 3 lineas: todas las cajitas quedan de la misma altura aunque
+     el titulo ocupe 1, 2 o 3 lineas. */
+  min-height: 5em;
+}
+.task-desc {
+  color: @muted;
+  font-size: 12px;
+}
+.task-desc.expanded {
+  color: @fg;
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+.task-date {
+  color: @fg;
+  font-size: 12px;
+}
+.task-meta {
+  font-size: 12px;
+  /* Reserva 2 lineas: la fecha de Moodle puede ocupar 2, la manual 1.
+     Asi todas las cajitas miden igual. */
+  min-height: 2.5em;
+}
+.task-course {
+  color: @accent;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* --- Columnas por color (verde | amarillo | rojo) --- */
+.task-columns {
+  margin-bottom: 4px;
+}
+.task-group {
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+.task-group.group-green {
+  border-left-color: @green;
+  background-color: alpha(@green, 0.06);
+}
+.task-group.group-yellow {
+  border-left-color: @yellow;
+  background-color: alpha(@yellow, 0.06);
+}
+.task-group.group-red {
+  border-left-color: @red;
+  background-color: alpha(@red, 0.07);
+}
+
+/* Lista de modulos (home del panel derecho) */
+.module-hint {
+  color: @muted;
+  font-size: 12px;
+}
+.module-row {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background-color: alpha(@fg, 0.04);
+  border: 1px solid alpha(@fg, 0.06);
+}
+.module-row:hover {
+  background-color: alpha(@accent, 0.14);
+}
+.module-icon {
+  font-size: 18px;
+  color: @accent;
+  min-width: 24px;
+}
+.module-title {
+  color: @fg;
+  font-weight: 700;
+}
+.module-sub {
+  color: @muted;
+  font-size: 12px;
+}
+.module-arrow {
+  color: @muted;
+  font-size: 18px;
+}
+
+/* Colores de "dias restantes" */
+.days-ok      { color: @green;  font-weight: 700; font-size: 12px; }
+.days-warn    { color: @yellow; font-weight: 700; font-size: 12px; }
+.days-danger  { color: @red;    font-weight: 700; font-size: 12px; }
+.days-overdue { color: @red;    font-weight: 700; font-size: 12px; }
+.days-none    { color: @muted;  font-size: 12px; }
+
+/* Badge de hora de cierre / horas restantes */
+.hours-badge { font-size: 11px; font-weight: 700; }
+
+/* Calendario + reloj (formulario de fecha y hora) */
+.datetime-picker {
+  margin-top: 2px;
+}
+.datetime-row {
+  margin-top: 2px;
+}
+.date-summary {
+  color: @fg;
+  font-size: 13px;
+  font-weight: 600;
+}
+.date-calendar {
+  background: transparent;
+  border: 1px solid @border;
+  border-radius: 8px;
+  padding: 2px;
+  font-size: 12px;
+}
+
+/* Modulo Calendario: resumen del dia seleccionado */
+.calendar-summary {
+  color: @muted;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 2px 4px;
+}
+.clock-col {
+  min-width: 32px;
+}
+.clock-head {
+  color: @muted;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+.clock-field {
+  margin-bottom: 2px;
+}
+.clock-step {
+  min-width: 0;
+  min-height: 0;
+  padding: 0 3px;
+  margin: 0;
+  font-size: 9px;
+  line-height: 0.9;
+}
+.clock-value {
+  color: @fg;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 22px;
+  padding: 0;
+}
+.clock-value:focus {
+  color: @accent;
+}
+.clock-colon {
+  font-weight: 700;
+  color: @accent;
+  font-size: 12px;
+}
+.clock-ampm {
+  min-width: 0;
+  min-height: 0;
+  padding: 1px 6px;
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* --- Checkbox --- */
+checkbutton.note-check {
+  min-width: 18px;
+  min-height: 18px;
+}
+checkbutton.note-check > check {
+  border: 1px solid @border;
+  border-radius: 5px;
+  background-color: transparent;
+}
+checkbutton.note-check > check:checked {
+  background-color: @green;
+  color: @on_accent;
+}
+
+/* --- Estado vacio --- */
+.empty-state {
+  color: @muted;
+  padding: 40px 10px;
+}
+
+/* --- Formularios --- */
+.field-label {
+  color: @accent;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+entry,
+textview,
+textview > text {
+  background-color: @input_bg;
+  background-image: none;
+  color: @fg;
+  border: 1px solid @border;
+  border-radius: 8px;
+}
+entry {
+  padding: 6px 8px;
+}
+entry:focus,
+textview:focus {
+  border-color: @accent;
+}
+textview {
+  padding: 4px;
+}
+
+button.primary {
+  background-color: @accent;
+  color: @on_accent;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 700;
+}
+button.primary:hover {
+  background-color: @accent_hover;
+}
+button.flat {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid @border;
+  border-radius: 8px;
+  color: @fg;
+  padding: 6px 12px;
+}
+button.flat:hover {
+  background-color: alpha(@accent, 0.18);
+}
+button.toggle-active {
+  background-color: alpha(@accent, 0.28);
+  border-color: @accent;
+  color: @accent;
+}
+.error-text {
+  color: @red;
+  font-size: 12px;
+}
+
+/* --- Panel de edicion flotante (cajon derecho sobre la lista) --- */
+.editor-panel {
+  background-color: @panel_bg;
+  border-left: 1px solid @border;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+.editor-panel .titlebar {
+  border-bottom: 1px solid @border;
+}
+
+/* --- Menu de temas (popover) --- */
+.theme-popover > contents,
+popover > contents {
+  background-color: @panel_bg;
+  border: 1px solid @border;
+  border-radius: 10px;
+}
+button.theme-item {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  color: @fg;
+  box-shadow: none;
+}
+button.theme-item:hover {
+  background-color: alpha(@accent, 0.18);
+}
+button.theme-item.theme-item-active {
+  color: @accent;
+  font-weight: 700;
+  background-color: alpha(@accent, 0.12);
+}
+
+/* --- Tareas de Moodle en la lista --- */
+.section-title {
+  color: @muted;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 10px 4px 2px;
+}
+.note-row.moodle-row {
+  border-color: alpha(@accent, 0.30);
+}
+.moodle-mark {
+  color: @accent;
+  font-size: 15px;
+  min-width: 24px;
+  padding: 0 2px;
+}
+
+/* --- Visor JSON de Moodle --- */
+.moodle-status {
+  color: @muted;
+  font-size: 11px;
+}
+textview.json-view,
+textview.json-view > text {
+  font-family: "JetBrainsMono Nerd Font", "Fira Code", "Hack Nerd Font", monospace;
+  font-size: 12px;
+  color: @fg;
+}
+
+/* --- Selector Formulario / Codigo / Vista --- */
+.mode-switcher button {
+  font-size: 11px;
+  padding: 2px 10px;
+  min-height: 0;
+}
+.mode-switcher button > label {
+  font-size: 11px;
+}
+
+/* --- Vista estetica del JSON (estilo preview de VS Code) --- */
+.json-preview {
+  padding: 2px;
+}
+.json-key {
+  color: @accent;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+.json-string {
+  color: @fg;
+  font-size: 13px;
+}
+.json-num {
+  color: @green;
+  font-size: 13px;
+}
+.json-bool {
+  color: @yellow;
+  font-size: 13px;
+}
+.json-null,
+.json-empty {
+  color: @muted;
+  font-size: 12px;
+  font-style: italic;
+}
+.json-row {
+  padding: 1px 0;
+}
+.json-block {
+  border-left: 1px solid alpha(@accent, 0.22);
+  padding-left: 10px;
+  margin-left: 2px;
+  margin-top: 2px;
+}
+.json-item {
+  border-left: 1px solid alpha(@accent, 0.30);
+  padding-left: 10px;
+  margin-left: 2px;
+}

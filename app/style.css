@@ -1,0 +1,313 @@
+/* Gonty - estilos (los colores @define-color se inyectan desde el tema
+   activo en theme.py). Mismo look que el widget de notas. */
+
+/* --- Ventana: fondo transparente real (Wayland ARGB) --- */
+window.gonty-window {
+  background-color: transparent;
+  background-image: none;
+}
+
+window.gonty-window .card {
+  background-color: @bg;
+  border: 1px solid @border;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Marco de color (franja). El background lo inyecta theme.py. */
+.frame {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* --- Tipografia monoespaciada estilo terminal --- */
+window.gonty-window {
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Fira Code",
+               "AtkynsonMono Nerd Font", "Hack Nerd Font", monospace;
+  font-size: 13px;
+  color: @fg;
+}
+
+/* --- Barra de titulo --- */
+.titlebar {
+  padding: 10px 12px;
+  background-color: transparent;
+  border-bottom: 1px solid @border;
+}
+.titlebar-title {
+  color: @accent;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+.titlebar-dot {
+  color: @green;
+  font-weight: 700;
+}
+
+/* --- Botones de icono --- */
+button.icon-btn {
+  min-width: 26px;
+  min-height: 26px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  background-image: none;
+  color: @fg;
+  box-shadow: none;
+}
+button.icon-btn:hover {
+  background-color: alpha(@accent, 0.20);
+  color: @accent;
+}
+button.icon-btn:active {
+  background-color: alpha(@accent, 0.32);
+}
+
+/* --- Scroll transparente --- */
+scrolledwindow,
+scrolledwindow > viewport,
+scrolledwindow > viewport > widget {
+  background-color: transparent;
+}
+
+/* --- Pagina Inicio --- */
+.home-logo {
+  color: @accent;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+.home-sub {
+  color: @muted;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+/* --- Estado vacio --- */
+.empty-state {
+  color: @muted;
+  padding: 40px 10px;
+}
+
+/* --- Botones --- */
+button.primary {
+  background-color: @accent;
+  color: @on_accent;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 700;
+}
+button.primary:hover {
+  background-color: @accent_hover;
+}
+button.flat {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid @border;
+  border-radius: 8px;
+  color: @fg;
+  padding: 6px 12px;
+}
+button.flat:hover {
+  background-color: alpha(@accent, 0.18);
+}
+.error-text {
+  color: @red;
+  font-size: 12px;
+}
+
+/* --- Campo de formulario --- */
+.field-label {
+  color: @accent;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+entry,
+textview,
+textview > text {
+  background-color: @input_bg;
+  background-image: none;
+  color: @fg;
+  border: 1px solid @border;
+  border-radius: 8px;
+}
+entry {
+  padding: 6px 8px;
+}
+entry:focus,
+textview:focus {
+  border-color: @accent;
+}
+
+/* --- Panel lateral de modulos --- */
+.editor-panel {
+  background-color: @panel_bg;
+  border-left: 1px solid @border;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: none;
+}
+.editor-panel .titlebar {
+  border-bottom: 1px solid @border;
+}
+.module-hint {
+  color: @muted;
+  font-size: 12px;
+}
+.module-row {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background-color: alpha(@fg, 0.04);
+  border: 1px solid alpha(@fg, 0.06);
+}
+.module-row:hover {
+  background-color: alpha(@accent, 0.14);
+}
+.module-icon {
+  font-size: 18px;
+  color: @accent;
+  min-width: 24px;
+}
+.module-title {
+  color: @fg;
+  font-weight: 700;
+}
+.module-sub {
+  color: @muted;
+  font-size: 12px;
+}
+.module-arrow {
+  color: @muted;
+  font-size: 18px;
+}
+
+/* --- Colores auxiliares --- */
+.days-none {
+  color: @muted;
+  font-size: 12px;
+}
+
+/* --- Menu de temas (popover) --- */
+.theme-popover > contents,
+popover > contents {
+  background-color: @panel_bg;
+  border: 1px solid @border;
+  border-radius: 10px;
+}
+button.theme-item {
+  background-color: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  color: @fg;
+  box-shadow: none;
+}
+button.theme-item:hover {
+  background-color: alpha(@accent, 0.18);
+}
+button.theme-item.theme-item-active {
+  color: @accent;
+  font-weight: 700;
+  background-color: alpha(@accent, 0.12);
+}
+
+/* --- Vista estetica del JSON --- */
+.json-string {
+  color: @fg;
+  font-size: 13px;
+}
+
+/* --- Catalogo --- */
+.catalog-toolbar {
+  border-bottom: 1px solid @border;
+  padding-bottom: 10px;
+}
+.catalog-status {
+  color: @muted;
+  font-size: 12px;
+}
+.catalog-card {
+  border-radius: 10px;
+  padding: 6px;
+  background-color: @bg_soft;
+  border: 1px solid alpha(@accent, 0.10);
+}
+.catalog-card:hover {
+  background-color: @bg_hover;
+  border-color: alpha(@accent, 0.30);
+}
+.catalog-card:selected {
+  border-color: @accent;
+}
+picture.poster {
+  border-radius: 8px;
+  background-color: @input_bg;
+}
+.card-title {
+  color: @fg;
+  font-weight: 700;
+  font-size: 12px;
+  min-height: 2.6em;
+}
+.card-meta {
+  color: @muted;
+  font-size: 11px;
+}
+
+/* --- Reproductor --- */
+.player-video {
+  background-color: #000000;
+  border-radius: 10px;
+  min-height: 320px;
+}
+.player-controls {
+  padding: 8px 14px;
+  border-top: 1px solid @border;
+}
+.player-time {
+  color: @muted;
+  font-size: 12px;
+  min-width: 5.5em;
+}
+.player-controls scale trough {
+  min-height: 6px;
+}
+
+/* --- Temporadas / episodios (rejilla de botones) --- */
+.season-grid button.season-btn {
+  min-height: 34px;
+  padding: 0 6px;
+  border-radius: 8px;
+  background-color: @bg_soft;
+  border: 1px solid alpha(@accent, 0.18);
+  color: @fg;
+  font-weight: 700;
+}
+.season-grid button.season-btn:hover {
+  background-color: @bg_hover;
+}
+.season-grid button.season-btn.season-btn-active {
+  background-color: @accent;
+  color: @on_accent;
+  border-color: @accent;
+}
+.episode-grid button.episode-btn {
+  min-height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border-radius: 8px;
+  background-color: @bg_soft;
+  border: 1px solid alpha(@accent, 0.14);
+  color: @fg;
+  font-weight: 700;
+  font-size: 14px;
+}
+.episode-grid button.episode-btn:hover {
+  background-color: @bg_hover;
+  border-color: alpha(@accent, 0.4);
+}

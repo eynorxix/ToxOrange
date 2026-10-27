@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Lanzador del widget de notas/recordatorios (GTK4).
+#
+# - Si hay una instancia residente y el codigo es ACTUAL, la muestra al
+#   instante por D-Bus (sin arrancar Python+GTK).
+# - Si el codigo (widget.py) cambio despues de que arranco la instancia,
+#   la reinicia para cargar la version nueva.
+APP_ID="org.eynor.noteswidget"
+OBJ_PATH="/org/eynor/noteswidget"
+PY_FILE="/home/eynor/.local/share/noteswidget/widget.py"
+
+# Reinicia la instancia si su codigo quedo viejo.
+PID="$(pgrep -f "noteswidget/widget[.]py" | head -n1)"
+if [ -n "$PID" ] && [ -r "/proc/$PID" ] && [ "$PY_FILE" -nt "/proc/$PID" ]; then
+    kill "$PID" 2>/dev/null
+    sleep 0.4
+fi
+
+if command -v gdbus >/dev/null 2>&1; then
+    if gdbus call --session \
+        --dest "$APP_ID" \
+        --object-path "$OBJ_PATH" \
+        --method org.freedesktop.Application.Activate "{}" >/dev/null 2>&1; then
+        exit 0
+    fi
+fi
+
+exec python3 "$PY_FILE" "$@"
